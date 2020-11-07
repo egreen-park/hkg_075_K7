@@ -177,8 +177,10 @@ class CarInterface(CarInterfaceBase):
 
     ret.steerRateCost = 1.0
 
-    ret.steerMaxBP = [0.]
-    ret.steerMaxV = [1.8]
+    #ret.steerMaxBP = [0.]
+    #ret.steerMaxV = [1.8]
+    ret.steerMaxBP = [20. * CV.KPH_TO_MS, 60 * CV.KPH_TO_MS]   #30, 60
+    ret.steerMaxV = [1.3, 1.9]   #1.3, 1.5
 
 
 
