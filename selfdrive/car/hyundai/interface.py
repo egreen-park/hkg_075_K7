@@ -160,6 +160,7 @@ class CarInterface(CarInterfaceBase):
 
     ret.lateralTuning.lqr.scaleBP = [20. * CV.KPH_TO_MS, 70. * CV.KPH_TO_MS]   #20., 50. (20km/h까지 scale 2100, 20~70km/h 비례감속, 70km/h scle 1500)
     ret.lateralTuning.lqr.scaleV = [2100.0, 1500.0]  #2000, 1700
+    
     ret.lateralTuning.lqr.ki = 0.005
 
     ret.lateralTuning.lqr.a = [0., 1., -0.22619643, 1.21822268]
