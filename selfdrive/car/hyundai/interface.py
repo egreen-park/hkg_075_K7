@@ -158,21 +158,22 @@ class CarInterface(CarInterfaceBase):
 
     ret.lateralTuning.init('lqr')
 
-    ret.lateralTuning.lqr.scaleBP = [20. * CV.KPH_TO_MS, 70. * CV.KPH_TO_MS]   #20., 50. (20km/h까지 scale 2100, 20~70km/h 비례감속, 70km/h scle 1500)
-    ret.lateralTuning.lqr.scaleV = [2100.0, 1500.0]  #2000, 1700
-    
-    ret.lateralTuning.lqr.ki = 0.005
+    ret.lateralTuning.lqr.scale = 1600.0
+    #ret.lateralTuning.lqr.scaleBP = [20. * CV.KPH_TO_MS, 70. * CV.KPH_TO_MS]   #20., 50. (20km/h까지 scale 2100, 20~70km/h 비례감속, 70km/h scle 1500)
+    #ret.lateralTuning.lqr.scaleV = [2100.0, 1500.0]  #2000, 1700
+
+    ret.lateralTuning.lqr.ki = 0.0043
 
     ret.lateralTuning.lqr.a = [0., 1., -0.22619643, 1.21822268]
     ret.lateralTuning.lqr.b = [-1.92006585e-04, 3.95603032e-05]
     ret.lateralTuning.lqr.c = [1., 0.]
-    ret.lateralTuning.lqr.k = [-104., 450.]
-    ret.lateralTuning.lqr.l = [0.25, 0.318]
-    ret.lateralTuning.lqr.dcGain = 0.00295
+    ret.lateralTuning.lqr.k = [-103.576, 450.]  #-103, 450
+    ret.lateralTuning.lqr.l = [0.24, 0.318]  #0.22
+    ret.lateralTuning.lqr.dcGain = 0.0029  #0.003
 
-    ret.steerRatio = 13.9
-    ret.steerActuatorDelay = 0.2
-    ret.steerLimitTimer = 2.0
+    ret.steerRatio = 13.9  #14.5
+    ret.steerActuatorDelay = 0.3
+    ret.steerLimitTimer = 3.0  #1.5
 
     ret.steerRateCost = 1.0
 
