@@ -152,7 +152,11 @@ class CarInterface(CarInterfaceBase):
       ret.mass = 1640. + STD_CARGO_KG
       ret.wheelbase = 2.845
 
+    elif candidate == CAR.K7:
 
+      tire_stiffness_factor = 0.6
+      ret.mass = 1685. + STD_CARGO_KG
+      ret.wheelbase = 2.855
 
     # LQR control by default for lateral control.
 
@@ -171,7 +175,7 @@ class CarInterface(CarInterfaceBase):
     ret.lateralTuning.lqr.l = [0.24, 0.318]  #0.22
     ret.lateralTuning.lqr.dcGain = 0.0029  #0.003
 
-    ret.steerRatio = 13.9  #14.5
+    ret.steerRatio = 14.4  #14.5
     ret.steerActuatorDelay = 0.3
     ret.steerLimitTimer = 3.0  #1.5
 
