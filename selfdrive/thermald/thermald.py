@@ -158,8 +158,8 @@ def thermald_thread():
   thermal_sock = messaging.pub_sock('thermal')
   health_sock = messaging.sub_sock('health', timeout=health_timeout)
   location_sock = messaging.sub_sock('gpsLocation')
-
   ignition = False
+  #ignition = True
   fan_speed = 0
   count = 0
 

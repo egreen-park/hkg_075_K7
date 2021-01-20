@@ -668,27 +668,27 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
     bb_ry = bb_y + bb_h;
   }
 
-  //add grey panda GPS accuracy
-  if (true) {
-    char val_str[16];
-    char uom_str[3];
-    NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
-    //show red/orange if gps accuracy is high
-      if(scene->gpsAccuracy > 1.0) {
-         val_color = nvgRGBA(255, 188, 3, 200);
-      }
-      if(scene->gpsAccuracy > 1.5) {
-         val_color = nvgRGBA(255, 0, 0, 200);
-      }
-    // gps accuracy is always in meters
-    snprintf(val_str, sizeof(val_str), "%.2f", (s->scene.gpsAccuracy));
-    snprintf(uom_str, sizeof(uom_str), "m");;
-    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "GPS수신",
-        bb_rx, bb_ry, bb_uom_dx,
-        val_color, lab_color, uom_color,
-        value_fontSize, label_fontSize, uom_fontSize );
-    bb_ry = bb_y + bb_h;
-  }
+//  //add grey panda GPS accuracy
+//  if (true) {
+//    char val_str[16];
+//    char uom_str[3];
+//    NVGcolor val_color = nvgRGBA(255, 255, 255, 200);
+//    //show red/orange if gps accuracy is high
+//      if(scene->gpsAccuracy > 1.0) {
+//         val_color = nvgRGBA(255, 188, 3, 200);
+//      }
+//      if(scene->gpsAccuracy > 1.5) {
+//         val_color = nvgRGBA(255, 0, 0, 200);
+//      }
+//    // gps accuracy is always in meters
+//    snprintf(val_str, sizeof(val_str), "%.2f", (s->scene.gpsAccuracy));
+//    snprintf(uom_str, sizeof(uom_str), "m");;
+//    bb_h +=bb_ui_draw_measure(s,  val_str, uom_str, "GPS수신",
+//        bb_rx, bb_ry, bb_uom_dx,
+//        val_color, lab_color, uom_color,
+//        value_fontSize, label_fontSize, uom_fontSize );
+//    bb_ry = bb_y + bb_h;
+//  }
 
   //finally draw the frame
   bb_h += 20;
@@ -706,7 +706,7 @@ static void drawLeftDebug(UIState *s)
     int w = 184;
     int x = (s->scene.ui_viz_rx + (bdr_s*2)) + 190;
     int y = 100;
-    int xo = 180;
+    int xo = 280;  //180
     int height = 70;
 
     nvgTextAlign(s->vg, NVG_ALIGN_CENTER | NVG_ALIGN_BASELINE);
@@ -715,30 +715,30 @@ static void drawLeftDebug(UIState *s)
     char str[256];
 
     ///////////
-    // LQR
+    // LQR   //
+    y += 200;
+    snprintf(str, sizeof(str), "I: %.3f", scene->lqr.getI());
+    ui_draw_text(s->vg, text_x, y, str, 25 * 2.5, COLOR_WHITE_ALPHA(200), s->font_sans_regular);
 
- //   snprintf(str, sizeof(str), "I: %.3f", scene->lqr.getI());
- //   ui_draw_text(s->vg, text_x, y, str, 25 * 2.5, COLOR_WHITE_ALPHA(200), s->font_sans_regular);
+    y += height;
+    snprintf(str, sizeof(str), "LQR: %.3f", scene->lqr.getLqrOutput());
+    ui_draw_text(s->vg, text_x, y, str, 25 * 2.5, COLOR_WHITE_ALPHA(200), s->font_sans_regular);
 
- //   y += height;
- //   snprintf(str, sizeof(str), "LQR: %.3f", scene->lqr.getLqrOutput());
- //   ui_draw_text(s->vg, text_x, y, str, 25 * 2.5, COLOR_WHITE_ALPHA(200), s->font_sans_regular);
+    y += height;
+    snprintf(str, sizeof(str), "O: %.3f", scene->lqr.getOutput());
+    ui_draw_text(s->vg, text_x, y, str, 25 * 2.5, COLOR_WHITE_ALPHA(200), s->font_sans_regular);
 
- //   y += height;
- //   snprintf(str, sizeof(str), "O: %.3f", scene->lqr.getOutput());
- //   ui_draw_text(s->vg, text_x, y, str, 25 * 2.5, COLOR_WHITE_ALPHA(200), s->font_sans_regular);
+    y += height;
+    snprintf(str, sizeof(str), "CURV: %.3f", scene->pCurvature * 1000.);
+    ui_draw_text(s->vg, text_x, y, str, 25 * 2.5, COLOR_WHITE_ALPHA(200), s->font_sans_regular);
 
- //   y += height;
- //   snprintf(str, sizeof(str), "CURV: %.3f", scene->pCurvature * 1000.);
- //   ui_draw_text(s->vg, text_x, y, str, 25 * 2.5, COLOR_WHITE_ALPHA(200), s->font_sans_regular);
+    y += height;
+    snprintf(str, sizeof(str), "sR: %.3f", scene->lp_steerRatio);
+    ui_draw_text(s->vg, text_x, y, str, 25 * 2.5, COLOR_WHITE_ALPHA(200), s->font_sans_regular);
 
- //   y += height;
- //   snprintf(str, sizeof(str), "sR: %.3f", scene->lp_steerRatio);
- //   ui_draw_text(s->vg, text_x, y, str, 25 * 2.5, COLOR_WHITE_ALPHA(200), s->font_sans_regular);
-
- //   y += height;
- //   snprintf(str, sizeof(str), "Lane: %.2f, %.2f", scene->l_prob, scene->r_prob);
- //   ui_draw_text(s->vg, text_x, y, str, 25 * 2.5, COLOR_WHITE_ALPHA(200), s->font_sans_regular);
+    y += height;
+    snprintf(str, sizeof(str), "Lane: %.2f, %.2f", scene->l_prob, scene->r_prob);
+    ui_draw_text(s->vg, text_x, y, str, 25 * 2.5, COLOR_WHITE_ALPHA(200), s->font_sans_regular);
 }
 
 
@@ -808,7 +808,7 @@ static void ui_draw_vision_maxspeed(UIState *s) {
   }
 
   ui_draw_rect(s->vg, viz_maxspeed_x, viz_maxspeed_y, viz_maxspeed_w, viz_maxspeed_h, color, 20, 10);
-
+// 20210120/////////////////////// 148 142
   nvgTextAlign(s->vg, NVG_ALIGN_CENTER | NVG_ALIGN_BASELINE);
   const int text_x = viz_maxspeed_x + (viz_maxspeed_xo / 2) + (viz_maxspeed_w / 2);
   ui_draw_text(s->vg, text_x, 148, "MAX", 26 * 2.5, COLOR_WHITE_ALPHA(is_cruise_set ? 200 : 100), s->font_sans_regular);
@@ -895,8 +895,8 @@ static void ui_draw_vision_speed(UIState *s) {
   nvgTextAlign(s->vg, NVG_ALIGN_CENTER | NVG_ALIGN_BASELINE);
 
   snprintf(speed_str, sizeof(speed_str), "%d", (int)speed);
-  ui_draw_text(s->vg, viz_speed_x + viz_speed_w / 2, 240, speed_str, 96*2.5, COLOR_WHITE, s->font_sans_bold);
-  ui_draw_text(s->vg, viz_speed_x + viz_speed_w / 2, 320, s->is_metric?"km/h":"mi/h", 36*2.5, COLOR_WHITE_ALPHA(200), s->font_sans_regular);
+  ui_draw_text(s->vg, viz_speed_x + viz_speed_w / 2, 940, speed_str, 96*2.5, COLOR_WHITE_ALPHA(90), s->font_sans_bold);
+  ui_draw_text(s->vg, viz_speed_x + viz_speed_w / 2, 1020, s->is_metric?"km/h":"mi/h", 26*2.5, COLOR_WHITE_ALPHA(120), s->font_sans_regular);
 
   // lane width
   //snprintf(speed_str, sizeof(speed_str), "%.1fm", scene->laneWidth);
